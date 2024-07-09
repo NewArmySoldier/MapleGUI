@@ -2420,7 +2420,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
 local Button = Tab:CreateButton({
     Name = "$1,000,000",
     Callback = function()
-         local args = {
+ local args = {
      [1] = {
          [1] = "PlaceOrder",
          [2] = {
@@ -2435,7 +2435,11 @@ local Button = Tab:CreateButton({
          [3] = workspace:WaitForChild("World"):WaitForChild("Buildings"):WaitForChild("Commercial"):WaitForChild("DunkinDonuts"):WaitForChild("ScriptableParts"):WaitForChild("Kiosks"):WaitForChild("1"):WaitForChild("PP")
      }
  }
-
+ 
+ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("JobFunction"):InvokeServer(unpack(args))
+    end,
+ })
+ 
 
 local Button = Tab:CreateButton({
    Name = "Nom Nom Nom :)",
