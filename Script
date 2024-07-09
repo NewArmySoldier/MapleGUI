@@ -2417,7 +2417,24 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
    end,
 })
 
-
+local Button = Tab:CreateButton({
+    Name = "$1,000,000",
+    Callback = function()
+         local args = {
+     [1] = {
+         [1] = "PlaceOrder",
+         [2] = {
+             [1] = {
+                 ["Image"] = "rbxassetid://7053136501",
+                 ["Name"] = "DONUT A",
+                 ["Price"] = -1000000,
+                 ["Reference"] = workspace:WaitForChild("World"):WaitForChild("Buildings"):WaitForChild("Commercial"):WaitForChild("DunkinDonuts"):WaitForChild("ScriptableParts"):WaitForChild("MenuMonitors"):WaitForChild("Settings"):WaitForChild("ListA"),
+                 ["Quantity"] = 1
+             }
+         },
+         [3] = workspace:WaitForChild("World"):WaitForChild("Buildings"):WaitForChild("Commercial"):WaitForChild("DunkinDonuts"):WaitForChild("ScriptableParts"):WaitForChild("Kiosks"):WaitForChild("1"):WaitForChild("PP")
+     }
+ }
 
 
 local Button = Tab:CreateButton({
