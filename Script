@@ -2082,7 +2082,7 @@ local Button = Tab:CreateButton({
         local args = {
             [1] = {
                 [1] = "EquipTool",
-                [2] = "M16A4",
+                [2] = "MP5",
                 [3] = "Guns"
             }
         }
