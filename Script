@@ -2504,7 +2504,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ButtonEvent"):FireServer(unpack(args))       
     end,
  })
- local Tab = Window:CreateTab("Fun :)")", 4483362458) -- Title, Image
+
+ local Tab = Window:CreateTab("Fun : )", 4483362458) -- Title, Image
 
  local Button = Tab:CreateButton({
     Name = "God Gun",
