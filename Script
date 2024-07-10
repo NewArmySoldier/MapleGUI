@@ -2504,6 +2504,67 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ButtonEvent"):FireServer(unpack(args))       
     end,
  })
+ local Tab = Window:CreateTab("Fun :)")", 4483362458) -- Title, Image
+
+ local Button = Tab:CreateButton({
+    Name = "God Gun",
+    Callback = function()
+        local gun = require(game.Players.LocalPlayer.Backpack["M4A1"].Options)
+
+        gun["ReloadLength"] = 0.01
+        gun["AutoFireRate"]
+        gun["ManualFireRate"]
+        gun["MagCount"] = 1000
+        gun["MagSize"] = 1000
+        gun["Name"] = "GodGun"
+    end,
+ })
+
+
+ local Button = Tab:CreateButton({
+    Name = "God Taser",
+    Callback = function()
+        local taser = require(game.Players.LocalPlayer.Backpack["Taser"].Options)
+
+        taser["Range"] = 500000
+        taser["ManualFireRate"] = 0.1
+        taser["MagSize"] = 1
+        taser["BulletSpeed"] = 500
+        taser["ReloadLength"] = 0.001
+        taser["MagCount"] = 300
+        taser["Name"] = "God Taser"
+    end,
+ })
+
+ 
+ local Button = Tab:CreateButton({
+    Name = "Spawn Taser",
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = "Taser",
+                [3] = "Police"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+    end,
+ })
+
+ 
+local Button = Tab:CreateButton({
+    Name = "Remove Taser - Add it back to 'reload' the taser.",
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "UnequipTool",
+                [2] = "Taser"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+    end,
+ })
+
 
  local Tab = Window:CreateTab("Outfits", 4483362458) -- Title, Image
 
