@@ -2513,8 +2513,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
         local gun = require(game.Players.LocalPlayer.Backpack["M4A1"].Options)
 
         gun["ReloadLength"] = 0.01
-        gun["AutoFireRate"]
-        gun["ManualFireRate"]
         gun["MagCount"] = 1000
         gun["MagSize"] = 1000
         gun["Name"] = "GodGun"
@@ -2537,6 +2535,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChil
     end,
  })
 
+ local Label = Tab:CreateLabel("Spawn / Despawn Taser")
  
  local Button = Tab:CreateButton({
     Name = "Spawn Taser",
