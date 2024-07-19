@@ -312,7 +312,68 @@ Tab:AddDropdown({
     end    
 })
 
+Tab:AddDropdown({
+    Name = "TC Items | Use for free ban!",
+    Default = "nil",
+    Options = {"TC-KV21", "TC-MS6", "TC-OP", "TC-SSR", "TC-Katana"},
+    Callback = function(Value)
 
+        local args = {
+            [1] = {
+                [1] = "UnequipTool",
+                [2] = Value,
+            }
+        }
+            
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
+    end    
+})
+
+-- Tab 4 - Menu Opener
+
+local Tab = Window:MakeTab({
+	Name = "Menu Opener",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Catalog",
+	Callback = function()
+        local args = {
+            [1] = {
+                [1] = "GiveCatalog"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ButtonEvent"):FireServer(unpack(args))   
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Dealership",
+	Callback = function()
+        local args = {
+            [1] = {
+                [1] = "View Cars",
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CivilianCarSpawner"):WaitForChild("CivilianCarSpawner")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Bounty",
+	Callback = function()
+        local args = {
+            [1] = {
+                [1] = "Pay Bounty",
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("PayBail"):WaitForChild("CivilianCarSpawner")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+  	end    
+})
 
 
 local ModList = {4291045, 89383969, 169768530, 4168653564, 2537585160, 2316065608, 633752460, 4704223349, 454578312, 691476267, 3233673077, 3238052045, 304478876, 1070198188, 1322073710, 26479694}
