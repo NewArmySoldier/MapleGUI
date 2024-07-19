@@ -313,7 +313,7 @@ Tab:AddDropdown({
 })
 
 Tab:AddDropdown({
-    Name = "TC Items | Use for free ban!",
+    Name = "Unequip TC Items",
     Default = "nil",
     Options = {"TC-KV21", "TC-MS6", "TC-OP", "TC-SSR", "TC-Katana"},
     Callback = function(Value)
@@ -328,8 +328,6 @@ Tab:AddDropdown({
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
     end    
 })
-
--- Tab 4 - Menu Opener
 
 local Tab = Window:MakeTab({
 	Name = "Menu Opener",
