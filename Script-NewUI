@@ -1,0 +1,508 @@
+local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
+
+local Window = ArrayField:CreateWindow({
+    Name = "Maple GUI v3",
+    LoadingTitle = "MAPLE COUNTY GUI V3",
+    LoadingSubtitle = "by _____",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil, -- Create a custom folder for your hub/game
+       FileName = "MapleGui"
+    },
+    Discord = {
+       Enabled = false,
+       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+    },
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+       Title = "Untitled",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided",
+       FileName = "Key", -- It is recommended to use something unique as other scripts using ArrayField may overwrite your key file
+       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like ArrayField to get the key from
+       Actions = {
+             [1] = {
+                 Text = 'Click here to copy the key link <--',
+                 OnPress = function()
+                     print('Pressed')
+                 end,
+                 }
+             },
+       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    }
+ })
+
+-- Home Tab | Start
+ local HomeTab = Window:CreateTab("Home", 4483362458) 
+
+ local Section = HomeTab:CreateSection("Additional Scripts",true)
+
+ local Button = HomeTab:CreateButton({
+    Name = "Infinite Yield",
+    Interact = 'Click',
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end,
+ })
+
+ local Button = HomeTab:CreateButton({
+    Name = "DeleteMob:Aimbot",
+    Interact = 'Click',
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NewArmySoldier/MapleGUI/main/DeleteMob"))()
+    end,
+ })
+
+ local Section = HomeTab:CreateSection("Usefull Stuff",true)
+
+ local Button = HomeTab:CreateButton({
+    Name = "Quick-Pay Bounty",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "PayBounty"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args)) 
+    end,
+ })
+
+ local Section = HomeTab:CreateSection("Quick Tools",true)
+
+ local Button = HomeTab:CreateButton({
+    Name = "M4A1",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = "M4A1",
+                [3] = "Guns"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+    end,
+ })
+
+ local Button = HomeTab:CreateButton({
+    Name = "Vest",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = "Vest",
+                [3] = "Van"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+    end,
+ })
+
+--Home Tab | End
+
+
+-- Spawners Tab | Start
+ local SpawnTab = Window:CreateTab("Spawners", 4483362458) 
+
+ local Section = SpawnTab:CreateSection("Primary Weapons",true)
+
+ local Dropdown = SpawnTab:CreateDropdown({
+    Name = "Rifles",
+    Options = {"M4A1", "M16A4", "MP5"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "RiflesDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = Option,
+                [3] = "Guns"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args)) 
+    end,
+ })
+
+ local Section = SpawnTab:CreateSection("Secondary Weapons",true)
+ 
+ local Dropdown = SpawnTab:CreateDropdown({
+    Name = "Pistols",
+    Options = {"Glock", "FIVE SEVEN", "M9"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "PistolsDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = Option,
+                [3] = "Guns"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args)) 
+    end,
+ })
+
+ local Section = SpawnTab:CreateSection("Criminal Tools",true)
+
+ local Dropdown = SpawnTab:CreateDropdown({
+    Name = "Crim Tools",
+    Options = {"Vest", "C4", "Lockpick", "Laptop", "Tablet", "Prybar", "HandDrill"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "CrimDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = Option,
+                [3] = "Van"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
+    end,
+ })
+
+ local Section = SpawnTab:CreateSection("Misc Items",true)
+
+ local Dropdown = SpawnTab:CreateDropdown({
+    Name = "Misc Items",
+    Options = {"Knife", "Bat", "Flashlight", "Umbrella"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "MiscDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = Option,
+                [3] = "Civillian"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
+    end,
+ })
+
+ local Section = SpawnTab:CreateSection(" ",true)
+
+ local Dropdown = SpawnTab:CreateDropdown({
+    Name = "Unequip Items",
+    Options = {"M4A1", "M16A4", "MP5", "Glock", "FIVE SEVEN", "M9", "Vest", "C4", "Lockpick", "Laptop", "Tablet", "Prybar", "HandDrill", "Knife", "Bat", "Flashlight", "Umbrella"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "UnequipDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "UnequipTool",
+                [2] = Option
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+    end,
+ })
+ 
+-- Spawners Tab | End
+
+
+-- Waypoint Tab | Start
+
+local WayTab = Window:CreateTab("Waypoints", 4483362458)
+
+local Label = WayTab:CreateLabel("Will add waypoints at a later date :)")
+
+local Dropdown = WayTab:CreateDropdown({
+    Name = "Waypoints: ",
+    Options = {"Dealership", "Gun Store", "Crim Base", "Crim Base Top", "County Gas", "City Gas"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "WaypointsDropdown", 
+    Callback = function(Option)
+        
+    end,
+ })
+ 
+-- Waypoint Tab | End
+
+
+--Rob Tab | Start
+
+---- UI Outputs
+local RobTab = Window:CreateTab("Robbing", 4483362458)
+
+local Section = RobTab:CreateSection("Server Info",true)
+
+local B1Label = RobTab:CreateLabel("Empty")
+local B1LootLabel = RobTab:CreateLabel("Empty")
+local B2Label = RobTab:CreateLabel("Empty")
+local B2LootLabel = RobTab:CreateLabel("Empty")
+local TcLabel = RobTab:CreateLabel("Empty")
+
+local PlaceHold = RobTab:CreateLabel("")
+
+local CopLabel = RobTab:CreateLabel("Empty")
+local FpdLabel = RobTab:CreateLabel("Empty")
+local McsoLabel = RobTab:CreateLabel("Empty")
+
+---- Variables 
+
+local mcsom = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.ActiveUnitsSign.MCSO.Screen.MainFrame.Availability.Text
+local fpdm = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.ActiveUnitsSign.FPD.Screen.MainFrame.Availability.Text
+
+local mcso = mcsom:gsub("[%[%]]", "")
+local fpd = fpdm:gsub("[%[%]]", "")
+
+local Cops = fpd + mcso 
+local b1 = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.HeistAvailabilities.CityBank.Screen.MainFrame.Availability.Text
+local b2 = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.HeistAvailabilities.CountyBank.Screen.MainFrame.Availability.Text
+local tc = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.HeistAvailabilities.TCStore.Screen.MainFrame.Availability.Text
+
+local b1loot = workspace.World.Buildings.Commercial.CountyBank.ScriptableParts.CurrentModule:GetChildren()
+local b1lootText = #b1loot > 0 and table.concat(b1loot, ", ") or "Unrobbed"
+local b2loot = workspace.World.Buildings.Commercial.CountyBank.ScriptableParts.CurrentModule:GetChildren()
+local b2lootText = #b2loot > 0 and table.concat(b2loot, ", ") or "Unrobbed"
+
+
+---- Update Function
+
+local function UpdateServerInfo()
+    B1Label:Set("City Bank - ".. b1)
+    B1LootLabel:Set("Loot - ".. b1lootText)
+
+    B2Label:Set("City Bank - ".. b2)
+    B2LootLabel:Set("Loot - ".. b2lootText)
+
+    TcLabel:Set("TC - " .. tc)
+
+    CopLabel:Set("Cops - ".. Cops)
+    FpdLabel:Set("FPD - ".. fpd)
+    McsoLabel:Set("MCSO - ".. mcso)
+end 
+
+
+local TestButton = RobTab:CreateButton({
+    Name = "Test",
+    Interact = 'Click',
+    Callback = function()
+        UpdateServerInfo()
+    end,
+ })
+
+-- Rob Tab | End
+
+
+-- Fun Tab | Start
+
+local FunTab = Window:CreateTab("Fun", 4483362458)
+
+local Section = FunTab:CreateSection("Taser",true)
+
+local Dropdown = FunTab:CreateDropdown({
+    Name = "Taser",
+    Options = {"Spawn Taser", "Remove Taser"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "TaserDropdown", 
+    Callback = function(Option)
+        if Option == "Spawn Taser" then 
+            local args = {
+                [1] = {
+                    [1] = "EquipTool",
+                    [2] = "Taser",
+                    [3] = "Police"
+                }
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+        elseif Option == "Remove Taser" then 
+            local args = {
+                [1] = {
+                    [1] = "UnequipTool",
+                    [2] = "Taser"
+                }
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
+        end 
+    end,
+ })
+
+local Section = FunTab:CreateSection("TC Guns",true)
+
+local Dropdown = FunTab:CreateDropdown({
+    Name = "TC Weapons | PATCHED",
+    Options = {"TC-KV21", "TC-MS6", "TC-OP", "TC-SSR", "TC-Katana"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "TCDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "EquipTool",
+                [2] = ,
+                [3] = "TC"
+            }
+        }      
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
+    end,
+ })
+
+ local Dropdown = FunTab:CreateDropdown({
+    Name = "Unequip TC Weapons",
+    Options = {"TC-KV21", "TC-MS6", "TC-OP", "i-SSR", "TC-Katana"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "TCUDropdown", 
+    Callback = function(Option)
+        local args = {
+            [1] = {
+                [1] = "UnequipTool",
+                [2] = Option,
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
+    end,
+ })
+
+ -- Fun Tab | End
+
+
+ -- Menu Opener Tab | Start
+
+ local MenuTab = Window:CreateTab("Menu Opener", 4483362458)
+
+ local Button = MenuTab:CreateButton({
+    Name = "Dealership",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "View Cars",
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CivilianCarSpawner"):WaitForChild("CivilianCarSpawner")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+    end,
+ })
+
+ local Button = MenuTab:CreateButton({
+    Name = "Catalog",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "GiveCatalog"
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ButtonEvent"):FireServer(unpack(args)) 
+    end,
+ })
+
+ local Button = MenuTab:CreateButton({
+    Name = "Gun Store",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "View Store",
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CivilianGuns"):WaitForChild("CivilianGuns")
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+    end,
+ })
+
+ local Button = MenuTab:CreateButton({
+    Name = "Bounty",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "Pay Bounty",
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("PayBail"):WaitForChild("CivilianCarSpawner")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+    end,
+ })
+
+-- Menu Opener Tab | End
+
+
+-- Outfit Tab | Start
+
+local FitTab = Window:CreateTab("Outfits", 4483362458)
+
+
+
+ -- Notification 
+
+ local ModList = {4291045, 89383969, 169768530, 4168653564, 2537585160, 2316065608, 633752460, 4704223349, 454578312, 691476267, 3233673077, 3238052045, 304478876, 1070198188, 1322073710, 26479694}
+
+ game.Players.PlayerAdded:Connect(function(PlayerJoin)
+    local staffname = nil 
+    
+    for i,v in pairs(ModList) do
+        if PlayerJoin.UserId == v then
+            if v == 4291045 then
+                staffname = "Luke (Owner)"
+            elseif v == 169768530 then
+                staffname = "CrxzyCookiie (Co-Owner)"
+            elseif v == 89383969 then
+                staffname = "Wisptich (LeadDev)"
+            elseif v == 4168653564 then 
+                staffname = "GroupLeader012 (Mod)"
+            elseif v == 2537585160 then
+                staffname = "fraudwrd (Mod)"
+            elseif v == 2316065608 then 
+                staffname = "AdamDownFireball"
+            elseif v == 633752460 then
+                staffname = "SirBaconThe5thh (Mod)"
+            elseif v == 4704223349 then
+                staffname = "In4antry (Mod)"
+            elseif v == 454578312 then
+                staffname = "Quazado (Mod)"
+            elseif v == 691476267 then
+                staffname = "CptMilkk (Mod)"
+            elseif v == 3233673077 then 
+                staffname = "ghost_44993 (Mod)"
+            elseif v == 3238052045 then 
+                staffname = "RYAN_dMONSTER (Mod)"
+            elseif v == 304478876 then 
+                staffname = "l0ngitude (Mod)"
+            elseif v == 1070198188 then 
+                staffname = "Sheriff_Dan401 (Mod)"
+            elseif v == 1322073710 then
+                staffname = "ycncooldude ('TC Representative' wtv that means (Snitch))"
+            elseif v == 26479694 then 
+                staffname = "Shobric ('TC Representative' wtv that means (Snitch))"
+            else 
+                staffname = "Unknown staff member"
+            end
+            
+            ArrayField:Notify({
+                Title = "Staff has joined your game!!!",
+                Content = staffname .." Has joined your game, stay cautious!!!",
+                Duration = 15,
+                Image = 4483362458,
+                Actions = { -- Notification Buttons
+                   Ignore = {
+                      Name = "Okay!",
+                      Callback = function()
+
+                   end
+                },
+              },
+             })
+            
+            break 
+        end
+    end
+end)
