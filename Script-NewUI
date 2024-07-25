@@ -262,7 +262,8 @@ local Dropdown = WayTab:CreateDropdown({
 local RobTab = Window:CreateTab("Robbing", 4483362458)
 
 local Section = RobTab:CreateSection("Insta-Place C4",true)
-local Button = MenuTab:CreateButton({
+
+local Button = RobTab:CreateButton({
     Name = "City Bank",
     Interact = 'Click',
     Callback = function()
@@ -287,7 +288,7 @@ local Button = MenuTab:CreateButton({
     end,
  })
 
- local Button = MenuTab:CreateButton({
+ local Button = RobTab:CreateButton({
     Name = "County Bank",
     Interact = 'Click',
     Callback = function()
@@ -310,6 +311,9 @@ local Button = MenuTab:CreateButton({
     end,
  })
 
+ local Section = RobTab:CreateSection("",true)
+
+local B1Label = RobTab:CreateLabel("More to be added later.")
 
 --[[
 local Section = RobTab:CreateSection("Server Info",true)
@@ -491,8 +495,8 @@ local Dropdown = FunTab:CreateDropdown({
                 [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CriminalStore"):WaitForChild("Spawner")
             }
         }
-        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
         
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))        
     end,
  })
 
