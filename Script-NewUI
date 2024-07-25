@@ -70,8 +70,27 @@ local Window = ArrayField:CreateWindow({
     end,
  })
 
- local Section = HomeTab:CreateSection("Quick Tools",true)
+ local Button = HomeTab:CreateButton({
+    Name = "Infinite Gas",
+    Interact = 'Click',
+    Callback = function()
+        local servCars = workspace.ScriptableParts.Other.IngameVehicles:GetChildren()
+        local LocalPlayer = game:GetService("Players").LocalPlayer
 
+        for i, v in pairs(servCars) do
+            local ownerAttribute = v:GetAttribute("Owner")
+            if ownerAttribute and ownerAttribute == LocalPlayer.Name then
+                local FuelCons = v.Initialize.Settings.FuelConsumption.Value
+            v.Initialize.Settings.FuelConsumption.Value = FuelCons == 0  -- Reduce fuel consumption by 20%
+            end
+        end
+    end,
+ })
+
+ local Section = HomeTab:CreateSection("Quick Tools",true)
+ local SadLabel = HomeTab:CreateLabel("Broken :(")
+
+ --[[
  local Button = HomeTab:CreateButton({
     Name = "M4A1",
     Interact = 'Click',
@@ -103,11 +122,13 @@ local Window = ArrayField:CreateWindow({
  })
 
 --Home Tab | End
-
+]]
 
 -- Spawners Tab | Start
  local SpawnTab = Window:CreateTab("Spawners", 4483362458) 
+ local SadLabel = SpawnTab:CreateLabel("Broken :(")
 
+--[[
  local Section = SpawnTab:CreateSection("Primary Weapons",true)
 
  local Dropdown = SpawnTab:CreateDropdown({
@@ -128,6 +149,8 @@ local Window = ArrayField:CreateWindow({
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args)) 
     end,
  })
+
+
 
  local Section = SpawnTab:CreateSection("Secondary Weapons",true)
  
@@ -209,7 +232,7 @@ local Window = ArrayField:CreateWindow({
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))
     end,
  })
- 
+ ]]
 -- Spawners Tab | End
 
 
@@ -238,6 +261,57 @@ local Dropdown = WayTab:CreateDropdown({
 ---- UI Outputs
 local RobTab = Window:CreateTab("Robbing", 4483362458)
 
+local Section = RobTab:CreateSection("Insta-Place C4",true)
+local Button = MenuTab:CreateButton({
+    Name = "City Bank",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "Place C4",
+                [2] = getNil("C4B", "MeshPart")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+        
+        
+        function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+        
+        local args = {
+            [1] = {
+                [1] = "Place C4",
+                [2] = getNil("C4A", "MeshPart")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+    end,
+ })
+
+ local Button = MenuTab:CreateButton({
+    Name = "County Bank",
+    Interact = 'Click',
+    Callback = function()
+        local args = {
+            [1] = {
+                [1] = "Place C4",
+                [2] = workspace:WaitForChild("World"):WaitForChild("Buildings"):WaitForChild("Commercial"):WaitForChild("CountyBank"):WaitForChild("ScriptableParts"):WaitForChild("CurrentWall"):WaitForChild("Wall"):WaitForChild("C4A")
+            }
+        } 
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+        
+        
+        local args = {
+            [1] = {
+                [1] = "Place C4",
+                [2] = workspace:WaitForChild("World"):WaitForChild("Buildings"):WaitForChild("Commercial"):WaitForChild("CountyBank"):WaitForChild("ScriptableParts"):WaitForChild("CurrentWall"):WaitForChild("Wall"):WaitForChild("C4B")
+            }
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+    end,
+ })
+
+
+--[[
 local Section = RobTab:CreateSection("Server Info",true)
 
 local B1Label = RobTab:CreateLabel("Empty")
@@ -256,9 +330,12 @@ local McsoLabel = RobTab:CreateLabel("Empty")
 
 local mcsom = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.ActiveUnitsSign.MCSO.Screen.MainFrame.Availability.Text
 local fpdm = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.ActiveUnitsSign.FPD.Screen.MainFrame.Availability.Text
+]]
 
-local mcso = mcsom:gsub("[%[%]]", "")
-local fpd = fpdm:gsub("[%[%]]", "")
+--local mcso = mcsom:gsub("[%[%]]", "")
+--local fpd = fpdm:gsub("[%[%]]", "")
+
+--[[
 
 local Cops = fpd + mcso 
 local b1 = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts.Screens.HeistAvailabilities.CityBank.Screen.MainFrame.Availability.Text
@@ -345,7 +422,7 @@ local Dropdown = FunTab:CreateDropdown({
         local args = {
             [1] = {
                 [1] = "EquipTool",
-                [2] = ,
+                [2] = "",
                 [3] = "TC"
             }
         }      
@@ -369,7 +446,7 @@ local Dropdown = FunTab:CreateDropdown({
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
     end,
  })
-
+]]
  -- Fun Tab | End
 
 
@@ -405,17 +482,17 @@ local Dropdown = FunTab:CreateDropdown({
  })
 
  local Button = MenuTab:CreateButton({
-    Name = "Gun Store",
+    Name = "Crimbase Store",
     Interact = 'Click',
     Callback = function()
         local args = {
             [1] = {
                 [1] = "View Store",
-                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CivilianGuns"):WaitForChild("CivilianGuns")
+                [2] = workspace:WaitForChild("ScriptableParts"):WaitForChild("Other"):WaitForChild("Interactables"):WaitForChild("CriminalStore"):WaitForChild("Spawner")
             }
         }
-        
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("InteractionEvent"):FireServer(unpack(args))
+        
     end,
  })
 
@@ -438,7 +515,7 @@ local Dropdown = FunTab:CreateDropdown({
 
 -- Outfit Tab | Start
 
-local FitTab = Window:CreateTab("Outfits", 4483362458)
+-- local FitTab = Window:CreateTab("Outfits", 4483362458)
 
 
 
