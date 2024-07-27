@@ -311,7 +311,63 @@ local Button = RobTab:CreateButton({
     end,
  })
 
- local Section = RobTab:CreateSection("",true)
+ local Section = RobTab:CreateSection("View Banks",true)
+
+
+-- City Bank Part
+local cb1 = Instance.new("Part", game.Workspace)
+cb1.Position = Vector3.new(486, -15, 1442)
+cb1.Anchored = true
+cb1.Transparency = 1
+cb1.Size = Vector3.new(0, 0, 0)
+cb1.CanCollide = false
+
+-- County Bank Part
+
+local cb2 = Instance.new("Part", game.Workspace)
+cb2.Position = Vector3.new(478, 24, -1475)
+cb2.Anchored = true
+cb2.Transparency = 1
+cb2.Size = Vector3.new(0, 0, 0)
+cb2.CanCollide = false
+
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+function viewcb1()
+    game.Workspace.CurrentCamera.CameraSubject = cb1
+end
+
+function viewcb2()
+    game.Workspace.CurrentCamera.CameraSubject = cb2
+end
+
+function returncam()
+    if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+        
+        game.Workspace.CurrentCamera.CameraSubject = LocalPlayer.Character.Humanoid
+    end
+
+end
+
+
+local Dropdown = RobTab:CreateDropdown({
+    Name = "View Banks",
+    Options = {"View City Bank", "View County Bank", "Return Camera"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"},
+    MultiSelection = false, -- 
+    Flag = "ViewDropdown", 
+    Callback = function(Option)
+       if Option == "View City Bank" then
+        viewcb1()
+       elseif Option == "View County Bank" then
+        viewcb2() 
+       elseif Option == "Return Camera" then
+        returncam()
+       end 
+    end,
+ })
 
 local B1Label = RobTab:CreateLabel("More to be added later.")
 
