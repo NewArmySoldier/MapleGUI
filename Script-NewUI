@@ -434,13 +434,172 @@ local TestButton = RobTab:CreateButton({
  })
 
 -- Rob Tab | End
-
+]]
 
 -- Fun Tab | Start
 
 local FunTab = Window:CreateTab("Fun", 4483362458)
 
-local Section = FunTab:CreateSection("Taser",true)
+local Section = FunTab:CreateSection("Car Upgrades",true)
+
+local currentCar = ""
+local currentTune = {}
+local baseTune = {}
+local carMatch = ""
+local checkedCar = ""
+local initalized = false
+
+local function getCar()
+    currentCar = game:GetService("Players").LocalPlayer.Car.Value.Name
+    print("Got Car: ".. currentCar)
+end
+
+local function getCurrentTune()
+    currentTune = require(game:GetService("ReplicatedStorage").VehicleTunes.Civilians[currentCar])
+    print("Got Current Tune")
+end
+
+
+function deepCopy(tbl)
+    local orig_type = type(tbl)
+    local copy
+
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, tbl, nil do
+            copy[deepCopy(orig_key)] = deepCopy(orig_value)
+        end
+        setmetatable(copy, deepCopy(getmetatable(tbl)))
+    else -- number, string, boolean, etc
+        copy = tbl
+    end
+
+    return copy
+end
+
+local function getBaseTune()
+    baseTune = deepCopy(require(game:GetService("ReplicatedStorage").VehicleTunes.Civilians[currentCar]))
+end 
+
+
+local function resetTune()
+    getCurrentTune()
+    -- Reset currentTune to originalTune values
+    currentTune["Redline"] = baseTune["Redline"]
+    currentTune["PeakRPM"] = baseTune["PeakRPM"]
+    currentTune["EqPoint"] = baseTune["EqPoint"]
+    print("Reset Tune to Original")
+end
+
+local function applyTune(tune)
+    baseRedline = baseTune["Redline"]
+    basePeakRPM = baseTune["PeakRPM"]
+    baseEqPoint = baseTune["EqPoint"]
+    print(baseRedline)
+    print(basePeakRPM)
+    print(baseEqPoint)
+
+    getCurrentTune()
+    print("Applying tune:"..tune)
+    if tune == "originalTune" then
+        -- No further modification needed; already reset to original
+    elseif tune == "smallTune" then 
+        currentTune["Redline"] = baseRedline * 5
+        currentTune["PeakRPM"] = basePeakRPM * 5
+        currentTune["EqPoint"] = baseEqPoint * 5
+    elseif tune == "midTune" then
+        currentTune["Redline"] = baseRedline * 10
+        currentTune["PeakRPM"] = basePeakRPM * 10
+        currentTune["EqPoint"] = baseEqPoint * 10
+    elseif tune == "maxTune" then 
+        currentTune["Redline"] = baseRedline * 100
+        currentTune["PeakRPM"] = basePeakRPM * 100
+        currentTune["EqPoint"] = baseEqPoint * 100
+    end
+    print("Applied Tune")
+end
+
+local function checkCar()
+    checkedCar = game:GetService("Players").LocalPlayer.Car.Value.Name
+    print("Checking Car")
+    if checkedCar == currentCar then 
+        carMatch = true
+        print("Matched")
+    else
+        carMatch = false
+        print("No Match")
+    end
+end
+
+local function check()
+    checkCar()
+    if not carMatch then 
+        resetTune()
+        initalized = false
+        initialize()
+    end
+end
+
+local function initialize()
+    if not initalized then
+        getCar()
+        print("Initialize: Got Car")
+        getBaseTune()
+        print("Initialize: Got Base Tune")
+        initalized = true
+        print("Initialization complete.")
+    else
+        check()
+        print("Checking Car")
+    end 
+end
+
+local Dropdown = FunTab:CreateDropdown({
+    Name = "Apply Tune",
+    Options = {"Original Tune", "Small Tune", "Medium Tune", "Max Tune"},
+    CurrentOption = "Option 1" or {"Option 1","Option 3"}, 
+    MultiSelection = false, 
+    Flag = "TuneDropdown", 
+    Callback = function(Option)
+        initialize()
+        if Option == "Original Tune" then 
+            applyTune("originalTune")
+        elseif Option == "Small Tune" then
+            applyTune("smallTune")
+        elseif Option == "Medium Tune" then 
+            applyTune("midTune")
+        elseif Option == "Max Tune" then 
+            applyTune("maxTune") 
+        end
+    end,
+})
+
+
+local Button = FunTab:CreateButton({
+    Name = "Uncap Speed",
+    Interact = 'Click',
+    Callback = function()
+        local servCars = workspace.ScriptableParts.Other.IngameVehicles:GetChildren()
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+
+        for i, v in pairs(servCars) do
+            local ownerAttribute = v:GetAttribute("Owner")
+            if ownerAttribute and ownerAttribute == LocalPlayer.Name then
+                local driveSeat = v:FindFirstChild("DriveSeat")
+                if driveSeat then
+                    driveSeat.MaxSpeed = 1000
+                else
+                    print("Couldn't find DriveSeat")
+                end
+            end
+        end
+    end,
+ })
+
+
+--[[
+local Section = FunTab:CreateSection("Taser",true)w
+
 
 local Dropdown = FunTab:CreateDropdown({
     Name = "Taser",
@@ -506,6 +665,7 @@ local Dropdown = FunTab:CreateDropdown({
         game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BankFunction"):InvokeServer(unpack(args))  
     end,
  })
+
 ]]
  -- Fun Tab | End
 
@@ -633,7 +793,7 @@ local Dropdown = FunTab:CreateDropdown({
                    Ignore = {
                       Name = "Okay!",
                       Callback = function()
-
+                      
                    end
                 },
               },
