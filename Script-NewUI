@@ -209,28 +209,53 @@ local techLabel = game:GetService("CoreGui").RobloxGui.ScreenGui.ArrayField.Main
 local fpdLabel = game:GetService("CoreGui").RobloxGui.ScreenGui.ArrayField.Main.Elements.Robbing.SectionTitle.Holder:GetChildren()[6].Title
 local mcsoLabel = game:GetService("CoreGui").RobloxGui.ScreenGui.ArrayField.Main.Elements.Robbing.SectionTitle.Holder:GetChildren()[7].Title
 
-local function doUpdate()
-    while true do
-        wait(1)
-        local cb1Info = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.CityBank.Screen.MainFrame.Availability
-        local cb2Info = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.CountyBank.Screen.MainFrame.Availability
-        local tcInfo = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.TCStore.Screen.MainFrame.Availability
-        local pdInfo = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").ActiveUnitsSign.FPD.Screen.MainFrame.Availability
-        local soInfo = workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").ActiveUnitsSign.MCSO.Screen.MainFrame.Availability
 
-        CityLabel.Text = "City Bank: ".. cb1Info.Text
-        CountyLable.Text = "County Bank: ".. cb2Info.Text
-        techLabel.Text = "Tech Store: ".. tcInfo.Text
-        fpdLabel.Text = "FPD: "..pdInfo.Text
-        mcsoLabel.Text = "MCSO: ".. soInfo.Text
-    end
+local function doUpdate()
+    
+
+   while true do
+       wait(1)
+       
+       local success, err = pcall(function()
+           local cb1Info = game.workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.CityBank.Screen.MainFrame:WaitForChild("Availability")
+           local cb2Info = game.workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.CountyBank.Screen.MainFrame:WaitForChild("Availability")
+           local tcInfo = game.workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").HeistAvailabilities.TCStore.Screen.MainFrame:WaitForChild("Availability")
+           local pdInfo = game.workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").ActiveUnitsSign.FPD.Screen.MainFrame:WaitForChild("Availability")
+           local soInfo = game.workspace.ScriptableParts.Civilians.CriminalBase.ScriptableParts:WaitForChild("Screens").ActiveUnitsSign.MCSO.Screen.MainFrame:WaitForChild("Availability")
+
+           
+           if CityLabel and cb1Info then
+            CityLabel.Text = "City Bank: " .. cb1Info.Text
+            end
+            if CountyLabel and cb2Info then
+                CountyLabel.Text = "County Bank: " .. cb2Info.Text
+            end
+            if techLabel and tcInfo then
+                techLabel.Text = "Tech Store: " .. tcInfo.Text
+            end
+            if fpdLabel and pdInfo then
+                fpdLabel.Text = "FPD: " .. pdInfo.Text
+            end
+            if mcsoLabel and soInfo then
+                mcsoLabel.Text = "MCSO: " .. soInfo.Text
+            end
+        end)
+        
+        print(cb2Info.Text)
+       
+       if not success then
+           warn("Error updating GUI: " .. tostring(err))
+       end
+   end
 end
 
 local function UpdateServerInfo()
-    coroutine.wrap(doUpdate)()
+   coroutine.wrap(doUpdate)()
 end
 
+
 UpdateServerInfo()
+
 
 local C4Section = RobTab:CreateSection("Insta-Place C4",false)
 
